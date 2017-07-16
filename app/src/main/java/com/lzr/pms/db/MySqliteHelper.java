@@ -12,7 +12,8 @@ import com.lzr.pms.Uitls.Constant;
 
 public class MySqliteHelper extends SQLiteOpenHelper {
 
-    public MySqliteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public MySqliteHelper(Context context, String name,
+                          SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
@@ -22,10 +23,12 @@ public class MySqliteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String userSql = "create table user (_id Integer primary key,account_id Integer,username varchar(10),password varchar(20))";
+        String userSql = "create table " + Constant.TABLE_NAME_USER + " (" + Constant.ID + " " +
+                "Integer primary key," + Constant.USER_ACCOUNT_ID + " Integer," +
+                "" + Constant.USER_NAME + " varchar(10)," + Constant.USER_PASSWORD + " varchar(20))";
         sqLiteDatabase.execSQL(userSql);
-        String empSql = "create table employee(_id Integer primary key,account_id Integer,name varchar(10)," +
-                "gender Integer,age Integer,avatar BLOB,department varchar)";
+        String empSql = "create table employee(_id Integer primary key,account_id Integer," +
+                "name varchar(10),gender Integer,age Integer,avatar BLOB,department varchar)";
         sqLiteDatabase.execSQL(empSql);
 
     }

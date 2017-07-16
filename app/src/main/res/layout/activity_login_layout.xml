@@ -50,7 +50,6 @@
                 android:layout_height="wrap_content"
                 android:hint="请输入账号"
                 android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true" />
 
