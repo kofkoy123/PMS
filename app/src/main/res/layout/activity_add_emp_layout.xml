@@ -56,6 +56,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:layout_marginLeft="10dp"
                 android:id="@+id/addemp_name_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -112,6 +113,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:layout_marginLeft="10dp"
                 android:id="@+id/addemp_age_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -142,6 +144,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:layout_marginLeft="10dp"
                 android:id="@+id/addemp_department_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -172,6 +175,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:layout_marginLeft="10dp"
                 android:id="@+id/addemp_mobile_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

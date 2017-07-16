@@ -92,6 +92,7 @@ public class DbManger {
                 Cursor cursor = db.query(tableNameEmployee, null, Constant.EMP_ACCOUNT_ID + "=?",
                         new String[]{accountId + ""}, null, null, null);
                 while (cursor.moveToNext()) {
+                    int id = cursor.getInt(cursor.getColumnIndex(Constant.ID));
                     long empAccountId = cursor.getLong(cursor.getColumnIndex(Constant.EMP_ACCOUNT_ID));
                     String name = cursor.getString(cursor.getColumnIndex(Constant.EMP_NAME));
                     int gender = cursor.getInt(cursor.getColumnIndex(Constant.EMP_GENDER));
@@ -99,7 +100,7 @@ public class DbManger {
                     byte[] avatar = cursor.getBlob(cursor.getColumnIndex(Constant.EMP_AVATAR));
                     String department = cursor.getString(cursor.getColumnIndex(Constant.EMP_DEPARTMENT));
                     int mobile = cursor.getInt(cursor.getColumnIndex(Constant.EMP_MOBILE));
-                    Employee emp = new Employee(empAccountId, name, gender, age, avatar, department,mobile);
+                    Employee emp = new Employee(id, empAccountId, name, gender, age, avatar, department, mobile);
                     employees.add(emp);
                 }
             }
@@ -109,24 +110,25 @@ public class DbManger {
 
     /**
      * 添加员工信息
-     * @param db 数据库对象
+     *
+     * @param db                数据库对象
      * @param tableNameEmployee 表名
-     * @param emp 员工信息对象
+     * @param emp               员工信息对象
      * @return 返回0 失败 大于0成功
      */
     public static long addEmpToSql(SQLiteDatabase db, String tableNameEmployee, Employee emp) {
         long result = 0;
-        if (db != null){
+        if (db != null) {
             if (tableNameEmployee != null && !"".equals(tableNameEmployee)) {
                 ContentValues values = new ContentValues();
-                values.put(Constant.EMP_ACCOUNT_ID,emp.getAccountId());
-                values.put(Constant.EMP_NAME,emp.getName());
-                values.put(Constant.EMP_GENDER,emp.getGender());
-                values.put(Constant.EMP_AGE,emp.getAge());
-                values.put(Constant.EMP_DEPARTMENT,emp.getDepartment());
-                values.put(Constant.EMP_MOBILE,emp.getMobile());
+                values.put(Constant.EMP_ACCOUNT_ID, emp.getAccountId());
+                values.put(Constant.EMP_NAME, emp.getName());
+                values.put(Constant.EMP_GENDER, emp.getGender());
+                values.put(Constant.EMP_AGE, emp.getAge());
+                values.put(Constant.EMP_DEPARTMENT, emp.getDepartment());
+                values.put(Constant.EMP_MOBILE, emp.getMobile());
                 //添加到数据库
-                result = db.insert(tableNameEmployee,null,values);
+                result = db.insert(tableNameEmployee, null, values);
             }
         }
 

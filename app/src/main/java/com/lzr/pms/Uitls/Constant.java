@@ -27,4 +27,8 @@ public class Constant {
 
     public static final int ACTIVITY_REGISTER = 1;
     public static final int ACTIVITY_ADD_EMP = 2;
+    public static final int ACITVITY_UPDATA_DEL = 3;
+
+    public static final int GENDER_MALE = 0;
+    public static final int GENDER_FEMALE = 1;
 }

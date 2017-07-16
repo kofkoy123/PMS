@@ -55,6 +55,7 @@ public class EmployeeAdapter extends BaseAdapter {
             holder.mAge = view.findViewById(R.id.item_age);
             holder.mDepartment = view.findViewById(R.id.item_department);
             holder.mMobile = view.findViewById(R.id.item_mobile);
+            holder.mCount = view.findViewById(R.id.item_count);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
@@ -62,6 +63,8 @@ public class EmployeeAdapter extends BaseAdapter {
         Employee emp = employees.get(i);
 //        holder.mAvatar.setImageBitmap();
         holder.mName.setText("姓名:" + emp.getName());
+        holder.mCount.setText(i + 1 + "");
+
         if (emp.getGender() == 0) {
             holder.mGender.setText("性别:" + "男");
         } else {
@@ -85,6 +88,6 @@ public class EmployeeAdapter extends BaseAdapter {
 
     class ViewHolder {
         ImageView mAvatar;
-        TextView mName, mGender, mAge, mDepartment, mMobile;
+        TextView mName, mGender, mAge, mDepartment, mMobile, mCount;
     }
 }

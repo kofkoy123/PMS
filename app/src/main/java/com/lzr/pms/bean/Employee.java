@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 public class Employee implements Serializable {
-
+    private int id;
     private long accountId;//标明不同用户的员工登录资料,避免所有用户登录获取的信息是一样
     private String name;
     private int gender;//0男 1女
@@ -19,8 +19,8 @@ public class Employee implements Serializable {
     public Employee() {
     }
 
-    public Employee(long accountId, String name, int gender, int age, byte[] avatar,
-                    String department, int mobile) {
+    public Employee(int id, long accountId, String name, int gender, int age, byte[] avatar, String department, int mobile) {
+        this.id = id;
         this.accountId = accountId;
         this.name = name;
         this.gender = gender;
@@ -28,6 +28,14 @@ public class Employee implements Serializable {
         this.avatar = avatar;
         this.department = department;
         this.mobile = mobile;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public long getAccountId() {

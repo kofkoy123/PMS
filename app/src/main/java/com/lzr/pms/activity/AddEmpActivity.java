@@ -47,10 +47,10 @@ public class AddEmpActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
                 if (i == R.id.addemp_female_view) {
-                    emp.setGender(1);
+                    emp.setGender(Constant.GENDER_FEMALE);
                     Log.e("lzr", "女");
                 } else {
-                    emp.setGender(0);
+                    emp.setGender(Constant.GENDER_MALE);
                     Log.e("lzr", "男");
                 }
             }
@@ -63,6 +63,8 @@ public class AddEmpActivity extends AppCompatActivity implements View.OnClickLis
         accountId = intent.getLongExtra("account_id", 0);
         emp = new Employee();
         helper = DbManger.getIntance(this);
+        mGenderView.check(R.id.addemp_male_view);
+        emp.setGender(Constant.GENDER_MALE);
     }
 
     private void initViews() {

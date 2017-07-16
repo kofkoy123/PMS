@@ -55,6 +55,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:layout_marginLeft="10dp"
                 android:id="@+id/modify_name_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -111,6 +112,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:layout_marginLeft="10dp"
                 android:id="@+id/modify_age_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -141,6 +143,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:layout_marginLeft="10dp"
                 android:id="@+id/modify_department_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -171,6 +174,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:layout_marginLeft="10dp"
                 android:id="@+id/modify_mobile_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

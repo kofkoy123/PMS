@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -44,6 +45,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setListener() {
         mAddEmpView.setOnClickListener(this);
+        mEmployeesView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Employee emp = employees.get(i);
+                Intent intent = new Intent(MainActivity.this, ModifyActivity.class);
+                intent.putExtra("emp", emp);
+                startActivityForResult(intent, Constant.ACITVITY_UPDATA_DEL);
+            }
+        });
     }
 
     private void initData() {
@@ -58,12 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "数据读取异常!", Toast.LENGTH_SHORT).show();
             return;
         }
-        SQLiteDatabase db = helper.getWritableDatabase();
-        List<Employee> results = DbManger.getEmpListByAccountId(db, Constant.TABLE_NAME_EMPLOYEE,
-                accountId);
-        employees.addAll(results);
-        db.close();
-
+        getEmpDatas();
         setAdapter();
     }
 
@@ -91,18 +96,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constant.ACTIVITY_ADD_EMP) {
-            if (resultCode == Activity.RESULT_OK) {
-                SQLiteDatabase db = helper.getWritableDatabase();
-                List<Employee> results = DbManger.getEmpListByAccountId(db, Constant.TABLE_NAME_EMPLOYEE,
-                        accountId);
-                employees.clear();
-                employees.addAll(results);
-                db.close();
-                if (adapter != null) {
-                    adapter.notifyDataSetChanged();
+        switch (requestCode) {
+            case Constant.ACTIVITY_ADD_EMP:
+            case Constant.ACITVITY_UPDATA_DEL:
+                if (resultCode == Activity.RESULT_OK) {
+                    getEmpDatas();
+                    if (adapter != null) {
+                        adapter.notifyDataSetChanged();
+                    }
                 }
-            }
+                break;
         }
     }
+
+    private void getEmpDatas() {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        db.beginTransaction();
+        List<Employee> results = DbManger.getEmpListByAccountId(db, Constant.TABLE_NAME_EMPLOYEE,
+                accountId);
+        employees.clear();
+        employees.addAll(results);
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        db.close();
+    }
+
 }

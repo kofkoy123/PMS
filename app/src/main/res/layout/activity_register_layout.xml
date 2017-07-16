@@ -54,6 +54,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:layout_marginLeft="10dp"
                 android:id="@+id/register_username_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -85,6 +86,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:layout_marginLeft="10dp"
                 android:id="@+id/register_password_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -117,6 +119,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:layout_marginLeft="10dp"
                 android:id="@+id/register_password_comfirm_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
