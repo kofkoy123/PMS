@@ -1,7 +1,5 @@
 package com.lzr.pms.bean;
 
-import android.graphics.Bitmap;
-
 import java.io.Serializable;
 
 /**
@@ -14,26 +12,29 @@ public class Employee implements Serializable {
     private String name;
     private int gender;//0男 1女
     private int age;
-    private Bitmap avatar;//员工头像
+    private byte[] avatar;//员工头像
     private String department;
+    private int mobile;
 
     public Employee() {
     }
 
-    public Employee(long accountId, String name, int gender, int age, Bitmap avatar, String department) {
+    public Employee(long accountId, String name, int gender, int age, byte[] avatar,
+                    String department, int mobile) {
         this.accountId = accountId;
         this.name = name;
         this.gender = gender;
         this.age = age;
         this.avatar = avatar;
         this.department = department;
+        this.mobile = mobile;
     }
 
-    public long getId() {
+    public long getAccountId() {
         return accountId;
     }
 
-    public void setId(long accountId) {
+    public void setAccountId(long accountId) {
         this.accountId = accountId;
     }
 
@@ -61,11 +62,11 @@ public class Employee implements Serializable {
         this.age = age;
     }
 
-    public Bitmap getAvatar() {
+    public byte[] getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(Bitmap avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
     }
 
@@ -75,5 +76,13 @@ public class Employee implements Serializable {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public int getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(int mobile) {
+        this.mobile = mobile;
     }
 }

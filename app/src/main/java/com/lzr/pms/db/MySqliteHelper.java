@@ -3,6 +3,7 @@ package com.lzr.pms.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.lzr.pms.Uitls.Constant;
 
@@ -27,14 +28,22 @@ public class MySqliteHelper extends SQLiteOpenHelper {
                 "Integer primary key," + Constant.USER_ACCOUNT_ID + " Integer," +
                 "" + Constant.USER_NAME + " varchar(10)," + Constant.USER_PASSWORD + " varchar(20))";
         sqLiteDatabase.execSQL(userSql);
-        String empSql = "create table employee(_id Integer primary key,account_id Integer," +
-                "name varchar(10),gender Integer,age Integer,avatar BLOB,department varchar)";
+        String empSql = "create table " + Constant.TABLE_NAME_EMPLOYEE + "(" + Constant.EMP_ACCOUNT_ID + " " +
+                "Integer primary key," + Constant.EMP_ACCOUNT_ID + " Integer," + Constant.EMP_NAME + " " +
+                "varchar(10)," + Constant.EMP_GENDER + " Integer," + Constant.EMP_AGE + " Integer," +
+                "" + Constant.EMP_AVATAR + " BLOB," + Constant.EMP_DEPARTMENT + " varchar)";
         sqLiteDatabase.execSQL(empSql);
 
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        Log.e("lzr", "onUpgrade11,oldVersion==" + oldVersion + ",newVersion" + newVersion);
+        if (newVersion == Constant.ADD_ZIDUAN_VERSION) {
+            String updataSql = "alter table " + Constant.TABLE_NAME_EMPLOYEE + " add " +
+                    "" + Constant.EMP_MOBILE + " Integer";
+            sqLiteDatabase.execSQL(updataSql);
+            Log.e("lzr", "onUpgrade222");
+        }
     }
 }

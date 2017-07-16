@@ -85,25 +85,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String password = mPasswordView.getText().toString().trim();
         String pwdcomfirm = mPwdcomfirmView.getText().toString().trim();
         if (TextUtils.isEmpty(userName)) {
-            Toast.makeText(this, "账户名不能为空!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "账户名不能为空!", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "密码不能为空!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "密码不能为空!", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(pwdcomfirm)) {
-            Toast.makeText(this, "请再输入密码!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "请输入确认密码!", Toast.LENGTH_SHORT).show();
             return;
         }
         for (User user : users) {
             if (userName.equals(user.getUserName())) {
-                Toast.makeText(this, "注册失败!账户名已被使用", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "注册失败!账户名已被使用", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
         if (!password.equals(pwdcomfirm)) {
-            Toast.makeText(this, "注册失败!两次输入密码不一致", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "注册失败!两次输入密码不一致", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -111,14 +111,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         long accountId = System.currentTimeMillis();//利用注册时间作为一个标记
         long result = DbManger.insertUser(db, Constant.TABLE_NAME_USER, accountId, userName, password);
         if (result > 0) {
-            Toast.makeText(this, "注册成功!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "注册成功!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent();
             intent.putExtra("username", userName);
             intent.putExtra("password", password);
             setResult(Activity.RESULT_OK, intent);
             finish();
         } else {
-            Toast.makeText(this, "注册失败!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "注册失败!", Toast.LENGTH_SHORT).show();
         }
     }
 }
