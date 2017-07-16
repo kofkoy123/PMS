@@ -127,6 +127,7 @@ public class DbManger {
                 values.put(Constant.EMP_AGE, emp.getAge());
                 values.put(Constant.EMP_DEPARTMENT, emp.getDepartment());
                 values.put(Constant.EMP_MOBILE, emp.getMobile());
+                values.put(Constant.EMP_AVATAR,emp.getAvatar());
                 //添加到数据库
                 result = db.insert(tableNameEmployee, null, values);
             }

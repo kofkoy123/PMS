@@ -3,11 +3,17 @@ package com.lzr.pms.activity;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +27,8 @@ import com.lzr.pms.bean.Employee;
 import com.lzr.pms.db.DbManger;
 import com.lzr.pms.db.MySqliteHelper;
 
+import java.io.ByteArrayOutputStream;
+
 public class ModifyActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView mBackView, mAvatarView;
     private EditText mNameView, mAgeView, mDepartmentView, mMobileView;
@@ -29,7 +37,6 @@ public class ModifyActivity extends AppCompatActivity implements View.OnClickLis
 
     private Employee emp;
     private MySqliteHelper helper;
-
 
 
     @Override
@@ -44,6 +51,7 @@ public class ModifyActivity extends AppCompatActivity implements View.OnClickLis
     private void setListener() {
         mBackView.setOnClickListener(this);
         mUpdataView.setOnClickListener(this);
+        mAvatarView.setOnClickListener(this);
         mDelView.setOnClickListener(this);
         mGenderView.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -86,6 +94,11 @@ public class ModifyActivity extends AppCompatActivity implements View.OnClickLis
             } else {
                 mMobileView.setText(emp.getMobile() + "");
             }
+            byte[] bmbyte = emp.getAvatar();
+            if (bmbyte != null) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(emp.getAvatar(), 0, emp.getAvatar().length);
+                mAvatarView.setImageBitmap(bitmap);
+            }
         }
     }
 
@@ -113,6 +126,11 @@ public class ModifyActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.modify_del_view:
                 delEmp();
+                break;
+            case R.id.modify_avatar_view:
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, Constant.ACITVITY_IMAGE);
                 break;
         }
     }
@@ -158,6 +176,7 @@ public class ModifyActivity extends AppCompatActivity implements View.OnClickLis
         values.put(Constant.EMP_AGE, age);
         values.put(Constant.EMP_DEPARTMENT, department);
         values.put(Constant.EMP_MOBILE, mobile);
+        values.put(Constant.EMP_AVATAR, emp.getAvatar());
         int result = db.update(Constant.TABLE_NAME_EMPLOYEE, values,
                 Constant.ID + "=?", new String[]{emp.getId() + ""});
         db.close();
@@ -169,5 +188,31 @@ public class ModifyActivity extends AppCompatActivity implements View.OnClickLis
         } else {
             Toast.makeText(this, "修改失败", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //获取图片路径
+        if (requestCode == Constant.ACITVITY_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumns = {MediaStore.Images.Media.DATA};
+            Cursor c = getContentResolver().query(selectedImage, filePathColumns, null, null, null);
+            c.moveToFirst();
+            int columnIndex = c.getColumnIndex(filePathColumns[0]);
+            String imagePath = c.getString(columnIndex);
+            showImage(imagePath);
+            c.close();
+        }
+    }
+
+    //加载图片
+    private void showImage(String imaePath) {
+        Log.e("lzr", "imaePath==" + imaePath);
+        Bitmap bm = BitmapFactory.decodeFile(imaePath);
+        final ByteArrayOutputStream os = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG, 100, os);
+        emp.setAvatar(os.toByteArray());
+        mAvatarView.setImageBitmap(bm);
     }
 }

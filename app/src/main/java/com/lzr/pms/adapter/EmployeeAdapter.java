@@ -1,6 +1,8 @@
 package com.lzr.pms.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +63,11 @@ public class EmployeeAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
         Employee emp = employees.get(i);
-//        holder.mAvatar.setImageBitmap();
+        byte[] bmbyte = emp.getAvatar();
+        if (bmbyte != null) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(emp.getAvatar(), 0, emp.getAvatar().length);
+            holder.mAvatar.setImageBitmap(bitmap);
+        }
         holder.mName.setText("姓名:" + emp.getName());
         holder.mCount.setText(i + 1 + "");
 
