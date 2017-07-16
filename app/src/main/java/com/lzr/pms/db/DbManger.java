@@ -106,4 +106,30 @@ public class DbManger {
         }
         return employees;
     }
+
+    /**
+     * 添加员工信息
+     * @param db 数据库对象
+     * @param tableNameEmployee 表名
+     * @param emp 员工信息对象
+     * @return 返回0 失败 大于0成功
+     */
+    public static long addEmpToSql(SQLiteDatabase db, String tableNameEmployee, Employee emp) {
+        long result = 0;
+        if (db != null){
+            if (tableNameEmployee != null && !"".equals(tableNameEmployee)) {
+                ContentValues values = new ContentValues();
+                values.put(Constant.EMP_ACCOUNT_ID,emp.getAccountId());
+                values.put(Constant.EMP_NAME,emp.getName());
+                values.put(Constant.EMP_GENDER,emp.getGender());
+                values.put(Constant.EMP_AGE,emp.getAge());
+                values.put(Constant.EMP_DEPARTMENT,emp.getDepartment());
+                values.put(Constant.EMP_MOBILE,emp.getMobile());
+                //添加到数据库
+                result = db.insert(tableNameEmployee,null,values);
+            }
+        }
+
+        return result;
+    }
 }

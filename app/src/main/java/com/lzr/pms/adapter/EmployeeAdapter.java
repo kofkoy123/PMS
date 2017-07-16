@@ -67,9 +67,19 @@ public class EmployeeAdapter extends BaseAdapter {
         } else {
             holder.mGender.setText("性别:" + "女");
         }
-        holder.mAge.setText("年龄:" + emp.getAge());
+        if (emp.getAge() == 0) {
+            holder.mAge.setText("年龄:未填写");
+        } else {
+            holder.mAge.setText("年龄:" + emp.getAge());
+        }
+
         holder.mDepartment.setText("部门:" + emp.getDepartment());
-        holder.mMobile.setText("手机:" + emp.getMobile());
+        if (emp.getMobile() == 0) {
+            holder.mMobile.setText("手机:未填写");
+        } else {
+            holder.mMobile.setText("手机:" + emp.getMobile());
+        }
+
         return view;
     }
 

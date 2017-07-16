@@ -26,5 +26,5 @@ public class Constant {
     public static final String EMP_MOBILE = "mobile";
 
     public static final int ACTIVITY_REGISTER = 1;
-
+    public static final int ACTIVITY_ADD_EMP = 2;
 }
